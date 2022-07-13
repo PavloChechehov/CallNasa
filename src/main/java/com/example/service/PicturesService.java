@@ -5,6 +5,7 @@ import com.example.model.Photo;
 import com.example.model.PhotoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +20,7 @@ public class PicturesService {
 
     private final RestTemplate restTemplate;
 
+    @Cacheable("picture")
     public ImageAttribute getLargestImageLength(String url) {
         PhotoResponse response = restTemplate.getForObject(url, PhotoResponse.class);
         ImageAttribute largest = response.photos()
